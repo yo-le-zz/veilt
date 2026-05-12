@@ -1,1 +1,1 @@
-from .core import init_config, set_config, get_config
+from .core import *

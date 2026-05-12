@@ -1,0 +1,22 @@
+🛡️ VEIL TEST DATA - CONFIDENTIAL
+
+Ce fichier contient des données de test pour le système VEIL.
+Ne pas modifier ou supprimer manuellement.
+
+Contenu de test :
+- ID: test_entry_001
+- Type: TEXT
+- Data: DONNEES_ULTRA_SENSIBLES_2025
+- Priority: HIGH
+- Classification: SECRET
+
+Test d'intégrité : SHA256 hash expected
+Test de chiffrement : AES-256 encryption expected
+Test de persistance : Multi-session storage expected
+
+⚠️ WARNING : Ce fichier est utilisé pour tester les fonctionnalités de sécurité de VEIL.
+Toute modification non autorisée sera détectée par les systèmes d'intégrité.
+
+Generated: 2025-05-12 21:15:00 UTC
+Purpose: VEIL Security Testing Suite
+Version: 1.0.0
