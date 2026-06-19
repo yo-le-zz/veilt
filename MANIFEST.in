@@ -1,0 +1,11 @@
+include README.md
+include LICENSE
+include CHANGELOG.md
+include pyproject.toml
+include setup.py
+recursive-include src/native *.cpp *.hpp
+recursive-include src/vault/native *.so *.dll *.dylib
+recursive-include src/locales *.json
+recursive-include tests *.py
+include assets/icon.ico
+include assets/icon.png

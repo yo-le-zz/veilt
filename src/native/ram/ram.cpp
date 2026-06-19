@@ -6,6 +6,12 @@
 #include <chrono>
 #include <algorithm>
 
+#if defined(_WIN32) || defined(_WIN64)
+#  define RAM_API __declspec(dllexport)
+#else
+#  define RAM_API __attribute__((visibility("default")))
+#endif
+
 extern "C" {
 
 std::unordered_map<std::string, std::vector<char>> RAM_STORAGE;
@@ -17,7 +23,7 @@ bool PANIC_MODE = false;
 // =========================================================
 // WRITE MEMORY
 // =========================================================
-__declspec(dllexport) void store(const char* id, const char* data, int size) {
+RAM_API void store(const char* id, const char* data, int size) {
     std::lock_guard<std::mutex> lock(ram_mutex);
 
     if (PANIC_MODE) {
@@ -36,7 +42,7 @@ __declspec(dllexport) void store(const char* id, const char* data, int size) {
 // =========================================================
 // READ MEMORY
 // =========================================================
-__declspec(dllexport) const char* get(const char* id) {
+RAM_API const char* get(const char* id) {
     std::lock_guard<std::mutex> lock(ram_mutex);
 
     if (PANIC_MODE) {
@@ -66,7 +72,7 @@ __declspec(dllexport) const char* get(const char* id) {
 // =========================================================
 // DELETE MEMORY (SECURE WIPE)
 // =========================================================
-__declspec(dllexport) void erase_entry(const char* id) {
+RAM_API void erase_entry(const char* id) {
     std::lock_guard<std::mutex> lock(ram_mutex);
 
     std::string key(id);
@@ -88,7 +94,7 @@ __declspec(dllexport) void erase_entry(const char* id) {
 // =========================================================
 // CLEAR ALL (panic wipe)
 // =========================================================
-__declspec(dllexport) void clear_all() {
+RAM_API void clear_all() {
     std::lock_guard<std::mutex> lock(ram_mutex);
 
     for (auto& pair : RAM_STORAGE) {
@@ -104,21 +110,21 @@ __declspec(dllexport) void clear_all() {
 // =========================================================
 // FAKE DUMP RESPONSE (ANTI-FORENSIC)
 // =========================================================
-__declspec(dllexport) const char* fake_dump() {
+RAM_API const char* fake_dump() {
     return "VEIL::ACCESS_DENIED::ANTI_DUMP_TRIGGERED";
 }
 
 // =========================================================
 // MEMORY STATUS
 // =========================================================
-__declspec(dllexport) int size() {
+RAM_API int size() {
     return RAM_STORAGE.size();
 }
 
 // =========================================================
 // PANIC MODE STATUS
 // =========================================================
-__declspec(dllexport) int is_panic_mode() {
+RAM_API int is_panic_mode() {
     return PANIC_MODE ? 1 : 0;
 }
 

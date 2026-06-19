@@ -3,34 +3,44 @@ import os
 import sys
 from pathlib import Path
 
-# DLL Path Detection
-def get_dll_path():
-    """Get RAM DLL path based on execution mode"""
-    
+# Shared library name selection depending on the host platform
+def get_shared_lib_name():
+    if sys.platform == "win32":
+        return "ram.dll"
+    if sys.platform == "darwin":
+        return "ram.dylib"
+    return "ram.so"
+
+
+# Shared library path detection
+def get_ram_lib_path():
+    lib_name = get_shared_lib_name()
+
     # Check if running from compiled executable
     if hasattr(sys, 'frozen'):
         if getattr(sys, '_MEIPASS', None):
             # PyInstaller one-file mode
-            return Path(sys._MEIPASS) / "ram.dll"
+            return Path(sys._MEIPASS) / lib_name
         else:
             # PyInstaller one-dir mode
-            return Path(sys.executable).parent / "ram.dll"
-    else:
-        # Development mode
-        dll_paths = [
-            Path(__file__).parent / "native" / "ram" / "build" / "ram.dll",
-            Path(__file__).parent / "native" / "ram" / "ram.dll",
-            Path.cwd() / "ram.dll"
-        ]
-        for path in dll_paths:
-            if path.exists():
-                return path
-        return Path("ram.dll")  # Fallback
+            return Path(sys.executable).parent / lib_name
 
-# Use detected DLL path
-dll_path = get_dll_path()
+    # Development mode
+    lib_paths = [
+        Path(__file__).parent / "native" / "ram" / "build" / lib_name,
+        Path(__file__).parent / "native" / "ram" / lib_name,
+        Path.cwd() / lib_name,
+    ]
+    for path in lib_paths:
+        if path.exists():
+            return path
 
-ram = ctypes.CDLL(dll_path)
+    return Path(lib_name)  # Fallback
+
+
+# Use detected shared library path
+dll_path = get_ram_lib_path()
+ram = ctypes.CDLL(str(dll_path))
 
 # =========================================================
 # TYPES

@@ -1,1 +1,7 @@
+# Linux build:
+mkdir -p build
+g++ -shared -o build/ram.so ram.cpp -O2 -s -std=c++17 -fPIC
+
+# Windows build (MSYS2 / MinGW):
+mkdir -p build
 g++ -shared -o build/ram.dll ram.cpp -O2 -s -std=c++17
