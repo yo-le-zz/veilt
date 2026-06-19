@@ -1,9 +1,9 @@
 """
-veil.memory
+veilt.memory
 ============
-Thin wrapper that picks the compiled native engine (`veil._veil_native`,
+Thin wrapper that picks the compiled native engine (`veilt._veilt_native`,
 written in C++) when available, and transparently falls back to a pure
--Python engine with the exact same semantics otherwise - so `import veil`
+-Python engine with the exact same semantics otherwise - so `import veilt`
 never hard-fails just because a C++ compiler wasn't available when the
 package was installed (e.g. an unusual platform not covered by the
 prebuilt wheels). The fallback has the same store/get/erase/clear_all
@@ -18,7 +18,7 @@ import warnings
 from typing import Optional
 
 try:
-    from . import _veil_native as _native  # type: ignore
+    from . import _veilt_native as _native  # type: ignore
     _NATIVE_AVAILABLE = True
 except ImportError:
     _native = None  # type: ignore
@@ -117,7 +117,7 @@ def create_engine(max_access_per_window: int = 30, min_interval_ms: int = 5):
         "VEIL native engine is not available on this platform - falling back "
         "to the pure-Python engine. Memory locking (mlock/VirtualLock) and "
         "process anti-dump hardening are disabled in this mode. Install a "
-        "C++ compiler and reinstall (`pip install --force-reinstall veil-vault`) "
+        "C++ compiler and reinstall (`pip install --force-reinstall veilt`) "
         "to enable full protection.",
         RuntimeWarning,
         stacklevel=2,

@@ -32,7 +32,7 @@ class DeleteReason(Enum):
 # LOG SYSTEM STATE
 # =========================================================
 
-TEMP_DIR = os.path.join(tempfile.gettempdir(), "veil_vault")
+TEMP_DIR = os.path.join(tempfile.gettempdir(), "veilt_vault")
 LOG_FILE = os.path.join(TEMP_DIR, "events.log")
 ATTACK_LOG_FILE = os.path.join(TEMP_DIR, "attacks.log")
 

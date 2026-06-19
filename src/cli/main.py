@@ -1,8 +1,8 @@
 """
-veil.cli.main
+veilt.cli.main
 ===============
-The `veil` command-line tool. A thin, FR/EN-aware layer on top of
-veil.vault.Vault - every command here is also directly available as a
+The `veilt` command-line tool. A thin, FR/EN-aware layer on top of
+veilt.vault.Vault - every command here is also directly available as a
 Python API call (see the README "Library usage" section).
 """
 from __future__ import annotations
@@ -20,7 +20,7 @@ from ..vault import Vault
 from . import output as out
 
 app = typer.Typer(
-    name="veil",
+    name="veilt",
     help="VEIL - Secure encrypted vault (in-memory + on-disk), usable as a CLI or a Python library.",
     add_completion=True,
     no_args_is_help=True,
@@ -118,7 +118,7 @@ def config_show(
     pw = _resolve_password(password)
     admin = ctx.obj.get("admin", False) if ctx.obj else False
     vault = _open_vault(name, pw, "ram", admin)
-    out.print_status(vault.status(), title=f"veil config — {name}")
+    out.print_status(vault.status(), title=f"veilt config — {name}")
     vault.close()
 
 

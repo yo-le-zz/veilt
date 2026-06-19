@@ -1,5 +1,5 @@
 """
-veil.osvault
+veilt.osvault
 =============
 Optional integration with the operating system's own secret store -
 inspired by Windows Credential Manager, macOS Keychain, and the
@@ -19,7 +19,7 @@ Backends:
               CredDeleteW) via ctypes.
   - Linux/macOS : delegates to the optional `keyring` package (Secret
               Service / KWallet / Keychain), installed with
-              `pip install veil-vault[keyring]`. Not a hard dependency:
+              `pip install veilt[keyring]`. Not a hard dependency:
               headless Linux servers (e.g. your Ubuntu box) simply
               won't have this feature available, which is expected.
 """
@@ -30,7 +30,7 @@ from typing import Optional
 
 from .exceptions import VeilError
 
-_SERVICE_PREFIX = "veil-vault"
+_SERVICE_PREFIX = "veilt"
 
 
 # =========================================================
@@ -71,7 +71,7 @@ def _windows_backend():
         cred.CredentialBlobSize = len(secret)
         cred.CredentialBlob = ctypes.cast(blob_buf, ctypes.POINTER(ctypes.c_byte))
         cred.Persist = CRED_PERSIST_LOCAL_MACHINE
-        cred.UserName = "veil"
+        cred.UserName = "veilt"
         if not advapi32.CredWriteW(ctypes.byref(cred), 0):
             raise VeilError(f"CredWriteW failed (Win32 error {ctypes.GetLastError()})")
 
@@ -105,7 +105,7 @@ def _keyring_backend():
     except ImportError as exc:
         raise VeilError(
             "The optional 'keyring' dependency is not installed. "
-            "Install it with: pip install veil-vault[keyring]"
+            "Install it with: pip install veilt[keyring]"
         ) from exc
 
     def write(target: str, secret: bytes) -> None:

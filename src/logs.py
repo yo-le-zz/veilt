@@ -1,5 +1,5 @@
 """
-veil.logs
+veilt.logs
 ==========
 Structured, tamper-evident audit log.
 
@@ -10,7 +10,7 @@ Every entry is cryptographically chained to the previous one:
 This mirrors the integrity guarantee of HashiCorp Vault's audit device
 (you can prove the log wasn't edited after the fact) without needing a
 server: it's just an HMAC chain over a local append-only file. Run
-`veil audit verify` (or `AuditLog.verify_chain()`) at any time to detect
+`veilt audit verify` (or `AuditLog.verify_chain()`) at any time to detect
 whether any past line was edited, reordered, or deleted.
 """
 from __future__ import annotations

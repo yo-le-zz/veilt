@@ -51,7 +51,7 @@ class SecurityTester:
     def test_basic_encryption(self):
         """Test 1: Chiffrement et déchiffrement"""
         try:
-            master_key = derive_master_key(self.test_password, "veil_salt")
+            master_key = derive_master_key(self.test_password, "veilt_salt")
             entry_key = derive_entry_key(master_key, "test_id")
             
             encrypted = encrypt(self.test_data.encode(), master_key)
@@ -96,7 +96,7 @@ class SecurityTester:
         try:
             # Stocker des données sensibles
             test_id = "anti_dump_test"
-            master_key = derive_master_key(self.test_password, "veil_salt")
+            master_key = derive_master_key(self.test_password, "veilt_salt")
             encrypted = encrypt(self.test_data.encode(), master_key)
             
             # Stocker en RAM
@@ -127,7 +127,7 @@ class SecurityTester:
         """Test 4: Vérification d'intégrité"""
         try:
             test_id = "integrity_test"
-            master_key = derive_master_key(self.test_password, "veil_salt")
+            master_key = derive_master_key(self.test_password, "veilt_salt")
             entry_key = derive_entry_key(master_key, test_id)
             
             # Données originales
@@ -158,7 +158,7 @@ class SecurityTester:
             register_entry(test_id, "test_hash", b"encrypted_data")
             
             # Vérifier que les données sont persistées
-            temp_dir = os.path.join(tempfile.gettempdir(), "veil_vault")
+            temp_dir = os.path.join(tempfile.gettempdir(), "veilt_vault")
             index_file = os.path.join(temp_dir, "index.json")
             data_file = os.path.join(temp_dir, f"{test_id}.data")
             
@@ -183,7 +183,7 @@ class SecurityTester:
         """Test 6: Accès concurrents"""
         try:
             test_id = "concurrent_test"
-            master_key = derive_master_key(self.test_password, "veil_salt")
+            master_key = derive_master_key(self.test_password, "veilt_salt")
             encrypted = encrypt(self.test_data.encode(), master_key)
             
             # Stocker en RAM
@@ -222,7 +222,7 @@ class SecurityTester:
         """Test 7: Suppression sécurisée"""
         try:
             test_id = "secure_delete_test"
-            master_key = derive_master_key(self.test_password, "veil_salt")
+            master_key = derive_master_key(self.test_password, "veilt_salt")
             encrypted = encrypt(self.test_data.encode(), master_key)
             
             # Stocker en RAM
@@ -260,7 +260,7 @@ class SecurityTester:
         try:
             # Simuler des tentatives de mot de passe incorrects
             test_id = "brute_force_test"
-            master_key = derive_master_key(self.test_password, "veil_salt")
+            master_key = derive_master_key(self.test_password, "veilt_salt")
             encrypted = encrypt(self.test_data.encode(), master_key)
             
             # Stocker en RAM
@@ -272,7 +272,7 @@ class SecurityTester:
             
             for wrong_pwd in wrong_passwords:
                 try:
-                    wrong_master = derive_master_key(wrong_pwd, "veil_salt")
+                    wrong_master = derive_master_key(wrong_pwd, "veilt_salt")
                     decrypt(encrypted, wrong_master)
                 except:
                     failed_attempts += 1
@@ -299,7 +299,7 @@ class SecurityTester:
         """Test 9: Résistance à l'analyse forensique"""
         try:
             test_id = "forensics_test"
-            master_key = derive_master_key(self.test_password, "veil_salt")
+            master_key = derive_master_key(self.test_password, "veilt_salt")
             encrypted = encrypt(self.test_data.encode(), master_key)
             
             # Stocker en RAM
@@ -363,7 +363,7 @@ class SecurityTester:
             clear_all()
             
             # Supprimer les fichiers temporaires
-            temp_dir = os.path.join(tempfile.gettempdir(), "veil_vault")
+            temp_dir = os.path.join(tempfile.gettempdir(), "veilt_vault")
             if os.path.exists(temp_dir):
                 import shutil
                 shutil.rmtree(temp_dir)

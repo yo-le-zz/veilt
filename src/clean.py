@@ -35,7 +35,7 @@ def cleanup_vault():
         
         # 3. Supprimer les fichiers temporaires
         print("3. Suppression des fichiers temporaires...")
-        temp_dir = os.path.join(tempfile.gettempdir(), "veil_vault")
+        temp_dir = os.path.join(tempfile.gettempdir(), "veilt_vault")
         if os.path.exists(temp_dir):
             try:
                 shutil.rmtree(temp_dir)
@@ -75,9 +75,9 @@ def cleanup_vault():
         print("\n🎉 NETTOYAGE COMPLET!")
         print("🛡️ VEIL est maintenant vierge et prêt à être réinitialisé")
         print("\n📋 Prochaines étapes:")
-        print("   1. python veil.py config init --storage ram --password VOTRE_MDP")
-        print("   2. python veil.py add --password VOTRE_MDP --id test --type txt --txt 'test'")
-        print("   3. python veil.py see --password VOTRE_MDP")
+        print("   1. python veilt.py config init --storage ram --password VOTRE_MDP")
+        print("   2. python veilt.py add --password VOTRE_MDP --id test --type txt --txt 'test'")
+        print("   3. python veilt.py see --password VOTRE_MDP")
         
         return True
         

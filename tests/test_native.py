@@ -2,13 +2,13 @@ import time
 
 import pytest
 
-from veil.memory import create_engine, is_native_available
+from veilt.memory import create_engine, is_native_available
 
 
 @pytest.fixture(params=["native"] + (["fallback"] if True else []))
 def engine(request, monkeypatch):
     if request.param == "fallback":
-        from veil import memory as memory_mod
+        from veilt import memory as memory_mod
         monkeypatch.setattr(memory_mod, "_NATIVE_AVAILABLE", False)
         return memory_mod.create_engine(max_access_per_window=5, min_interval_ms=20)
     return create_engine(max_access_per_window=5, min_interval_ms=20)

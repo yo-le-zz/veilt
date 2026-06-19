@@ -1,8 +1,8 @@
 {
     "app_title": "VEIL - Secure Encrypted Vault",
     "vault_initialized": "Vault '{name}' initialized successfully.",
-    "vault_already_initialized": "Vault '{name}' is already initialized. Use 'veil config set' to change settings.",
-    "vault_not_initialized": "Vault '{name}' is not initialized yet. Run: veil config init --password YOUR_PASSWORD",
+    "vault_already_initialized": "Vault '{name}' is already initialized. Use 'veilt config set' to change settings.",
+    "vault_not_initialized": "Vault '{name}' is not initialized yet. Run: veilt config init --password YOUR_PASSWORD",
     "auth_failed": "Authentication failed: incorrect master password.",
     "weak_password": "This password is too weak: {reason}",
     "entry_added": "Entry '{id}' encrypted and stored successfully.",
@@ -17,7 +17,7 @@
     "audit_chain_broken": "WARNING: the audit log chain is BROKEN - it may have been edited or tampered with.",
     "purge_confirm": "This will irreversibly delete vault '{name}' (all entries, config, and audit log). Re-run with --yes to confirm.",
     "purge_complete": "Vault '{name}' has been completely purged.",
-    "admin_required": "This operation requires administrator/root privileges. Re-run with --admin, or call veil.elevate.request_admin().",
+    "admin_required": "This operation requires administrator/root privileges. Re-run with --admin, or call veilt.elevate.request_admin().",
     "elevation_requested": "Requesting elevated privileges...",
     "native_engine_unavailable": "Native security engine unavailable on this platform: falling back to the pure-Python engine (reduced memory protection).",
     "error_generic": "Error: {message}"

@@ -1,5 +1,5 @@
 """
-veil.i18n
+veilt.i18n
 ==========
 Minimal FR/EN translation engine for CLI and log-facing messages.
 """

@@ -1,5 +1,5 @@
 """
-veil.cli.output
+veilt.cli.output
 =================
 Small Rich-based output helpers shared by every CLI command.
 """

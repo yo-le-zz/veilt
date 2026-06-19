@@ -2,7 +2,7 @@ import os
 
 from typer.testing import CliRunner
 
-from veil.cli.main import app
+from veilt.cli.main import app
 
 runner = CliRunner()
 ENV = {"VEIL_PASSWORD": "CliRunner!Pass#2026"}

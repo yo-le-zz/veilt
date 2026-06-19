@@ -1,7 +1,7 @@
 """
-veil.exceptions
+veilt.exceptions
 ================
-Exception hierarchy for VEIL. Catching `veil.VeilError` catches everything
+Exception hierarchy for VEIL. Catching `veilt.VeilError` catches everything
 VEIL can raise.
 """
 

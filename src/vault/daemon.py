@@ -24,7 +24,7 @@ RUNNING = False
 INDEX = {}
 DAEMON_LOCK = threading.Lock()
 
-TEMP_DIR = os.path.join(tempfile.gettempdir(), "veil_vault")
+TEMP_DIR = os.path.join(tempfile.gettempdir(), "veilt_vault")
 
 
 # =========================================================

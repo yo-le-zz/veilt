@@ -7,8 +7,8 @@ without forcing elevation on you. Re-run with `python examples/admin_mode.py
 """
 import sys
 
-import veil
-from veil import elevate
+import veilt
+from veilt import elevate
 
 print("Currently running as admin/root:", elevate.is_admin())
 
@@ -16,7 +16,7 @@ if "--elevate" in sys.argv and not elevate.is_admin():
     print("Requesting elevated privileges (this will prompt you)...")
     elevate.request_admin()  # relaunches elevated and exits this process
 
-with veil.Vault(
+with veilt.Vault(
     password="Admin-Example-P@ss!1",
     name="admin-demo",
     storage="disk",

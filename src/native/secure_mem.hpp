@@ -33,7 +33,7 @@
     #endif
 #endif
 
-namespace veil {
+namespace veilt {
 
 // ---------------------------------------------------------
 // secure_zero: overwrite memory in a way the compiler cannot
@@ -122,7 +122,7 @@ inline bool raise_memlock_limit() {
     return setrlimit(RLIMIT_MEMLOCK, &rl) == 0;
 #else
     // Windows equivalent (SeLockMemoryPrivilege / working-set quota) is
-    // adjusted from the Python side (veil.elevate.harden_token_privileges)
+    // adjusted from the Python side (veilt.elevate.harden_token_privileges)
     // since it requires the Win32 security/token APIs, not just the CRT.
     return false;
 #endif
@@ -167,4 +167,4 @@ struct SecureAllocator {
 
 using SecureBuffer = std::vector<unsigned char, SecureAllocator<unsigned char>>;
 
-} // namespace veil
+} // namespace veilt

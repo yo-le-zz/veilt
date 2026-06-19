@@ -2,7 +2,7 @@
 """
 VEIL build orchestrator (replaces the old compile.py).
 
-Builds the standalone `veil` CLI executable with Nuitka for BOTH Windows
+Builds the standalone `veilt` CLI executable with Nuitka for BOTH Windows
 and Linux, in separate threads with clearly prefixed, live, colored
 progress so both builds are easy to follow side by side in one terminal.
 
@@ -45,12 +45,12 @@ ROOT = Path(__file__).resolve().parent.parent
 DIST_DIR = ROOT / "dist" / "standalone"
 ASSETS_DIR = ROOT / "assets"
 ICON_PATH = ASSETS_DIR / "icon.ico"
-ENTRY_SCRIPT = ROOT / "src" / "veil" / "cli" / "main.py"
+ENTRY_SCRIPT = ROOT / "src" / "veilt" / "cli" / "main.py"
 
 VERSION = "1.0.0"
 AUTHOR = "yolezz"
 
-GITHUB_REPO = "yo-le-zz/veil"
+GITHUB_REPO = "yo-le-zz/veilt"
 GITHUB_API = "https://api.github.com"
 
 _print_lock = threading.Lock()
@@ -88,7 +88,7 @@ def build_local(target: str, result_queue: "queue.Queue[BuildResult]") -> None:
         "--standalone",
         "--onefile",
         f"--output-dir={out_dir}",
-        "--include-package=veil",
+        "--include-package=veilt",
         "--remove-output",
         "--assume-yes-for-downloads",
         "--company-name=yolezz",
@@ -150,7 +150,7 @@ def build_remote(target: str, result_queue: "queue.Queue[BuildResult]") -> None:
             "Authorization": f"Bearer {token}",
             "Accept": "application/vnd.github+json",
             "Content-Type": "application/json",
-            "User-Agent": "veil-compileur",
+            "User-Agent": "veilt-compileur",
         })
         urllib.request.urlopen(req, timeout=15)
         log(target.upper(), "Dispatched. Live logs:")
@@ -183,7 +183,7 @@ def main() -> int:
 
     for target in targets:
         worker = build_local if target == host else build_remote
-        t = threading.Thread(target=worker, args=(target, result_queue), name=f"veil-build-{target}")
+        t = threading.Thread(target=worker, args=(target, result_queue), name=f"veilt-build-{target}")
         threads.append(t)
         t.start()
 

@@ -44,27 +44,27 @@ def main():
     # Liste des tests à exécuter
     tests = [
         {
-            "cmd": f'cd "{parent_dir}" && python veil.py purge',
+            "cmd": f'cd "{parent_dir}" && python veilt.py purge',
             "desc": "Nettoyage complet du système VEIL"
         },
         {
-            "cmd": f'cd "{parent_dir}" && python veil.py config init --storage ram --password "TestSecure123!" --ram-limit 512mo --disk-limit 1gb',
+            "cmd": f'cd "{parent_dir}" && python veilt.py config init --storage ram --password "TestSecure123!" --ram-limit 512mo --disk-limit 1gb',
             "desc": "Initialisation de la configuration VEIL"
         },
         {
-            "cmd": f'cd "{parent_dir}" && python veil.py add --password "TestSecure123!" --id "test_data" --type txt --txt "DONNEES_SENSIBLES_TEST_2025"',
+            "cmd": f'cd "{parent_dir}" && python veilt.py add --password "TestSecure123!" --id "test_data" --type txt --txt "DONNEES_SENSIBLES_TEST_2025"',
             "desc": "Ajout de données de test"
         },
         {
-            "cmd": f'cd "{parent_dir}" && python veil.py see --password "TestSecure123!"',
+            "cmd": f'cd "{parent_dir}" && python veilt.py see --password "TestSecure123!"',
             "desc": "Vérification des données stockées"
         },
         {
-            "cmd": f'cd "{parent_dir}" && python veil.py get --id "test_data" --password "TestSecure123!"',
+            "cmd": f'cd "{parent_dir}" && python veilt.py get --id "test_data" --password "TestSecure123!"',
             "desc": "Récupération des données"
         },
         {
-            "cmd": f'cd "{parent_dir}" && python veil.py del --id "test_data"',
+            "cmd": f'cd "{parent_dir}" && python veilt.py del --id "test_data"',
             "desc": "Suppression sécurisée des données"
         },
         {

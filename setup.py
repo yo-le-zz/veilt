@@ -1,7 +1,7 @@
 """
 Build glue for the native extension only. All package metadata lives in
 pyproject.toml (PEP 621) - this file's sole job is to compile
-src/veil/native/engine.cpp into the `veil._veil_native` extension module
+src/veilt/native/engine.cpp into the `veilt._veilt_native` extension module
 and build the `vault` RAM shared library before packaging.
 """
 from pathlib import Path
@@ -67,7 +67,7 @@ else:
 
 ext_modules = [
     Pybind11Extension(
-        "veil._veil_native",
+        "veilt._veilt_native",
         ["src/native/engine.cpp"],
         cxx_std=17,
         extra_compile_args=cpp_args,
@@ -76,8 +76,8 @@ ext_modules = [
 ]
 
 setup(
-    package_dir={"veil": "src"},
-    packages=["veil"] + [f"veil.{pkg}" for pkg in find_packages(where="src", exclude=["tests", "tests.*"])],
+    package_dir={"veilt": "src"},
+    packages=["veilt"] + [f"veilt.{pkg}" for pkg in find_packages(where="src", exclude=["tests", "tests.*"])],
     include_package_data=True,
     ext_modules=ext_modules,
     cmdclass={"build_ext": BuildExtWithRam},

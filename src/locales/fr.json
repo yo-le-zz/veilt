@@ -1,8 +1,8 @@
 {
     "app_title": "VEIL - Coffre-fort chiffré sécurisé",
     "vault_initialized": "Coffre '{name}' initialisé avec succès.",
-    "vault_already_initialized": "Le coffre '{name}' est déjà initialisé. Utilisez 'veil config set' pour modifier les paramètres.",
-    "vault_not_initialized": "Le coffre '{name}' n'est pas encore initialisé. Lancez : veil config init --password VOTRE_MOT_DE_PASSE",
+    "vault_already_initialized": "Le coffre '{name}' est déjà initialisé. Utilisez 'veilt config set' pour modifier les paramètres.",
+    "vault_not_initialized": "Le coffre '{name}' n'est pas encore initialisé. Lancez : veilt config init --password VOTRE_MOT_DE_PASSE",
     "auth_failed": "Échec de l'authentification : mot de passe maître incorrect.",
     "weak_password": "Ce mot de passe est trop faible : {reason}",
     "entry_added": "Entrée '{id}' chiffrée et stockée avec succès.",
@@ -17,7 +17,7 @@
     "audit_chain_broken": "ATTENTION : la chaîne du journal d'audit est ROMPUE - elle a peut-être été modifiée ou altérée.",
     "purge_confirm": "Cette action supprimera définitivement le coffre '{name}' (toutes les entrées, la config et le journal d'audit). Relancez avec --yes pour confirmer.",
     "purge_complete": "Le coffre '{name}' a été entièrement purgé.",
-    "admin_required": "Cette opération nécessite des privilèges administrateur/root. Relancez avec --admin, ou appelez veil.elevate.request_admin().",
+    "admin_required": "Cette opération nécessite des privilèges administrateur/root. Relancez avec --admin, ou appelez veilt.elevate.request_admin().",
     "elevation_requested": "Demande de privilèges élevés en cours...",
     "native_engine_unavailable": "Moteur de sécurité natif indisponible sur cette plateforme : repli sur le moteur Python pur (protection mémoire réduite).",
     "error_generic": "Erreur : {message}"

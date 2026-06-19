@@ -1,9 +1,9 @@
 """
 VEIL - Secure, encrypted, in-memory/on-disk secret vault for Python.
 
-    import veil
+    import veilt
 
-    with veil.Vault(password="My-Strong-P@ssw0rd!") as vault:
+    with veilt.Vault(password="My-Strong-P@ssw0rd!") as vault:
         vault.set("api_key", "sk-...")
         print(vault.get("api_key"))
 
@@ -53,7 +53,7 @@ __all__ = [
 
 def quick_set(entry_id: str, value: str, password: str, vault_name: str = "default", **kwargs) -> None:
     """One-liner, keyring-style convenience function:
-    `veil.quick_set("github_token", "ghp_xxx", password="...")`
+    `veilt.quick_set("github_token", "ghp_xxx", password="...")`
 
     Defaults to `storage="disk"` (encrypted-at-rest) since, unlike a
     long-running `Vault()` instance, two separate quick_set()/quick_get()
@@ -67,7 +67,7 @@ def quick_set(entry_id: str, value: str, password: str, vault_name: str = "defau
 
 def quick_get(entry_id: str, password: str, vault_name: str = "default", **kwargs) -> str:
     """One-liner, keyring-style convenience function:
-    `veil.quick_get("github_token", password="...")`"""
+    `veilt.quick_get("github_token", password="...")`"""
     kwargs.setdefault("storage", "disk")
     with Vault(password=password, name=vault_name, **kwargs) as vault:
         return vault.get(entry_id)

@@ -151,7 +151,7 @@ def get_config():
     if CONFIG is None:
         return {
             "status": "not_initialized",
-            "message": "Run: veil config init"
+            "message": "Run: veilt config init"
         }
 
     return CONFIG
@@ -256,10 +256,10 @@ def add_data(password: str, id: str, data: str):
     # =========================================================
     elif storage == "disk":
 
-        tmp_dir = os.path.join(tempfile.gettempdir(), "veil_vault")
+        tmp_dir = os.path.join(tempfile.gettempdir(), "veilt_vault")
         os.makedirs(tmp_dir, exist_ok=True)
 
-        file_path = os.path.join(tmp_dir, f"{id}.veil")
+        file_path = os.path.join(tmp_dir, f"{id}.veilt")
 
         with open(file_path, "wb") as f:
             f.write(encrypted_data)

@@ -1,5 +1,5 @@
 """
-veil.antimem
+veilt.antimem
 =============
 Lightweight, best-effort detection of memory-inspection tooling running
 in the same process (PyMem-style libraries, debuggers attached via

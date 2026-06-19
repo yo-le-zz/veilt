@@ -1,5 +1,5 @@
 """
-veil.crypto
+veilt.crypto
 ============
 Modern cryptographic primitives for VEIL.
 
@@ -152,7 +152,7 @@ def decrypt(blob: bytes, key: bytes, associated_data: Optional[bytes] = None) ->
 
 
 # =========================================================
-# HMAC (defense-in-depth integrity layer, see veil.integrity)
+# HMAC (defense-in-depth integrity layer, see veilt.integrity)
 # =========================================================
 def hmac_sha256(key: bytes, data: bytes) -> str:
     return hmac.new(key, data, hashlib.sha256).hexdigest()

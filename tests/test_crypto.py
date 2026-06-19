@@ -1,7 +1,7 @@
 import pytest
 
-from veil import crypto
-from veil.exceptions import DecryptionError
+from veilt import crypto
+from veilt.exceptions import DecryptionError
 
 
 def test_password_hash_and_verify_roundtrip():
@@ -26,8 +26,8 @@ def test_derive_master_key_differs_across_salts():
 
 def test_subkeys_are_independent_per_purpose():
     master = crypto.derive_master_key("hunter2", crypto.generate_salt())
-    k_hmac = crypto.derive_subkey(master, "veil-integrity-hmac")
-    k_chain = crypto.derive_subkey(master, "veil-audit-chain")
+    k_hmac = crypto.derive_subkey(master, "veilt-integrity-hmac")
+    k_chain = crypto.derive_subkey(master, "veilt-audit-chain")
     assert k_hmac != k_chain
     assert k_hmac != master
 

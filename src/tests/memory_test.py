@@ -48,7 +48,7 @@ class MemoryAttackTest:
         """Configure des données sensibles dans VEIL"""
         print("🔐 Configuration des données sensibles...")
         try:
-            master_key = derive_master_key(self.test_password, "veil_salt")
+            master_key = derive_master_key(self.test_password, "veilt_salt")
             encrypted_data = encrypt(self.sensitive_data.encode(), master_key)
             
             # Stocker plusieurs entrées sensibles
@@ -90,7 +90,7 @@ class MemoryAttackTest:
                     if data and data != b'VEIL::FAKE_DATA_BLOCK':
                         # Essayer de déchiffrer
                         try:
-                            master_key = derive_master_key(self.test_password, "veil_salt")
+                            master_key = derive_master_key(self.test_password, "veilt_salt")
                             decrypted = decrypt(data, master_key).decode()
                             if "SECRET" in decrypted or "TOP_SECRET" in decrypted:
                                 leaked_data.append(decrypted)
@@ -110,10 +110,10 @@ class MemoryAttackTest:
             self.log_attack("RAM Scan", False, f"Erreur scan: {e}")
     
     def attack_memory_injection(self):
-        """Test 2: Injection de mémoire malveillante"""
-        print("\n🎯 ATTAQUE 2: Injection mémoire malveillante")
+        """Test 2: Injection de mémoire malveiltlante"""
+        print("\n🎯 ATTAQUE 2: Injection mémoire malveiltlante")
         try:
-            # Essayer d'écrire des données malveillantes dans la RAM
+            # Essayer d'écrire des données malveiltlantes dans la RAM
             malicious_payloads = [
                 "HACKED_BY_ATTACKER",
                 "MEMORY_COMPROMISED",

@@ -1,11 +1,11 @@
 """
-veil.config
+veilt.config
 ============
 Cross-platform secure storage locations.
 
-  - Linux/macOS (per-user) : $XDG_DATA_HOME/veil  or  ~/.local/share/veil
+  - Linux/macOS (per-user) : $XDG_DATA_HOME/veilt  or  ~/.local/share/veilt
   - Windows (per-user)     : %LOCALAPPDATA%\\Veil
-  - Linux (admin/root)     : /etc/veil
+  - Linux (admin/root)     : /etc/veilt
   - Windows (admin)        : %PROGRAMDATA%\\Veil
 
 This fixes a real-world packaging bug class (e.g. trying to write to a
@@ -26,7 +26,7 @@ from typing import Optional
 from .exceptions import ConfigError
 from ._version import VERSION
 
-APP_NAME = "veil"
+APP_NAME = "veilt"
 CONFIG_FILENAME = "config.json"
 
 CONFIG_TEMPLATE = {

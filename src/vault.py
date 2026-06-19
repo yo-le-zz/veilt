@@ -1,11 +1,11 @@
 """
-veil.vault
+veilt.vault
 ===========
 High-level public API.
 
-    import veil
+    import veilt
 
-    with veil.Vault(password="My-Strong-P@ssw0rd!") as vault:
+    with veilt.Vault(password="My-Strong-P@ssw0rd!") as vault:
         vault.set("api_key", "sk-...")
         secret = vault.get("api_key")
 
@@ -89,7 +89,7 @@ class Vault:
         Request the extra hardening unlocked by elevated privileges
         (unrestricted memory locking, system-wide storage location).
         VEIL never elevates the process for you - call
-        `veil.elevate.request_admin()` yourself first if you need to
+        `veilt.elevate.request_admin()` yourself first if you need to
         re-launch with privileges, then pass admin=True.
     hmac_enabled : bool
         Extra, independent HMAC-SHA256 integrity layer on top of AES-GCM's
@@ -165,8 +165,8 @@ class Vault:
         # The master key only ever lives here, in locked process memory,
         # for as long as this Vault object stays unsealed.
         self._master_key = crypto.derive_master_key(password, self._config["salt"])
-        self._hmac_key = crypto.derive_subkey(self._master_key, "veil-integrity-hmac")
-        self._chain_key = crypto.derive_subkey(self._master_key, "veil-audit-chain")
+        self._hmac_key = crypto.derive_subkey(self._master_key, "veilt-integrity-hmac")
+        self._chain_key = crypto.derive_subkey(self._master_key, "veilt-audit-chain")
         self._sealed = False
 
         self._audit = AuditLog(self._data_dir / "audit.log", self._chain_key)
@@ -190,7 +190,7 @@ class Vault:
 
     def __repr__(self) -> str:
         state = "sealed" if self._sealed else "unsealed"
-        return f"<veil.Vault name={self.name!r} storage={self.storage!r} {state}>"
+        return f"<veilt.Vault name={self.name!r} storage={self.storage!r} {state}>"
 
     def close(self) -> None:
         """Seal the vault: wipe the master key and every in-memory secret.
@@ -211,7 +211,7 @@ class Vault:
     # Internal helpers
     # ----------------------------------------------------------------- #
     def _data_file(self, entry_id: str) -> Path:
-        return self._data_dir / f"{entry_id}.veil"
+        return self._data_dir / f"{entry_id}.veilt"
 
     def _index_path(self) -> Path:
         return self._data_dir / "index.json"
@@ -219,7 +219,7 @@ class Vault:
     def _load_index(self) -> None:
         """Restore entry metadata (status/ttl/data_hash/access_count) that
         was persisted on a previous process's exit - this is what lets
-        `veil see` / `veil integrity` / TTL leases work correctly across
+        `veilt see` / `veilt integrity` / TTL leases work correctly across
         separate CLI invocations of a disk-backed vault, not just within
         one long-running library process."""
         index = cfgmod.load_config_at(self._index_path())

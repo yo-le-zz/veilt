@@ -3,7 +3,7 @@ requires = ["setuptools>=68", "wheel", "pybind11>=2.11"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "veil-vault"
+name = "veilt"
 version = "1.0.0"
 description = "Secure, encrypted, in-memory/on-disk secret vault for Python - drop into any project with just a password."
 readme = "README.md"
@@ -42,23 +42,23 @@ windows = ["pywin32>=306; platform_system=='Windows'"]
 dev = ["pytest>=8.0", "pytest-cov>=5.0", "build>=1.0", "cibuildwheel>=2.17"]
 
 [project.urls]
-Homepage = "https://github.com/yo-le-zz/veil"
-Repository = "https://github.com/yo-le-zz/veil"
-Issues = "https://github.com/yo-le-zz/veil/issues"
-Changelog = "https://github.com/yo-le-zz/veil/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/yo-le-zz/veilt"
+Repository = "https://github.com/yo-le-zz/veilt"
+Issues = "https://github.com/yo-le-zz/veilt/issues"
+Changelog = "https://github.com/yo-le-zz/veilt/blob/main/CHANGELOG.md"
 
 [project.scripts]
-veil = "veil.cli.main:run"
+veilt = "veilt.cli.main:run"
 
 [tool.setuptools]
-package-dir = { "veil" = "src" }
+package-dir = { "veilt" = "src" }
 include-package-data = true
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
-veil = ["locales/*.json"]
+veilt = ["locales/*.json"]
 vault = ["native/ram/build/*"]
 
 [tool.pytest.ini_options]
@@ -67,7 +67,7 @@ testpaths = ["tests"]
 [tool.cibuildwheel]
 build-verbosity = 1
 test-requires = "pytest"
-test-command = "python -c \"import veil; assert veil.is_native_available()\""
+test-command = "python -c \"import veilt; assert veilt.is_native_available()\""
 
 [tool.cibuildwheel.linux]
 before-all = "yum install -y gcc-c++ || apt-get update && apt-get install -y g++ || true"

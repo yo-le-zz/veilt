@@ -1,4 +1,4 @@
-from veil import crypto, integrity
+from veilt import crypto, integrity
 
 
 def test_compute_and_verify_entry_hash():

@@ -1,5 +1,5 @@
 """
-veil.daemon
+veilt.daemon
 ============
 Background thread tracking entry status (ACTIVE / EXPIRED / DELETED /
 CORRUPTED) and enforcing optional TTL leases on secrets - a simplified,
@@ -48,7 +48,7 @@ class Daemon:
             if self._running:
                 return
             self._running = True
-        self._thread = threading.Thread(target=self._loop, daemon=True, name="veil-daemon")
+        self._thread = threading.Thread(target=self._loop, daemon=True, name="veilt-daemon")
         self._thread.start()
 
     def stop(self) -> None:

@@ -1,5 +1,5 @@
 """
-Name : veil
+Name : veilt
 Author : yo-le-zz
 Version : 1.0.0
 """
@@ -81,7 +81,7 @@ def version(
     """Display version information"""
 
     data = {
-        "name": "veil",
+        "name": "veilt",
         "version": VERSION
     }
 

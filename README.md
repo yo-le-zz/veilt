@@ -4,7 +4,7 @@
 
 **Secure, encrypted, in-memory and/or on-disk vault for Python — `pip`-installable and usable in any project with just a password.**
 
-[![PyPI](https://img.shields.io/pypi/v/veil-vault)](https://pypi.org/project/veil-vault/)
+[![PyPI](https://img.shields.io/pypi/v/veilt)](https://pypi.org/project/veilt/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20Linux%20%7C%20ARM%20(Raspberry%20Pi)-blue)]()
 
@@ -16,14 +16,14 @@ Author / Auteur: **yolezz**
 
 VEIL est une librairie Python (avec moteur natif C++) qui fournit un coffre-fort
 chiffré pour vos secrets (clés API, tokens, mots de passe, identifiants...).
-Elle s'installe avec `pip install veil-vault` et s'utilise dans n'importe quel
+Elle s'installe avec `pip install veilt` et s'utilise dans n'importe quel
 script avec un simple mot de passe — sans serveur, sans dépendance externe
 obligatoire.
 
 ```python
-import veil
+import veilt
 
-with veil.Vault(password="Mon-Mot-De-Passe-Solide!") as vault:
+with veilt.Vault(password="Mon-Mot-De-Passe-Solide!") as vault:
     vault.set("api_key", "sk-xxxxxxxx")
     print(vault.get("api_key"))
 ```
@@ -54,13 +54,13 @@ tient dans votre processus Python.
 
 VEIL is a Python library (with a native C++ engine) providing an encrypted
 vault for your secrets (API keys, tokens, passwords, credentials...). Install
-it with `pip install veil-vault` and use it in any script with just a
+it with `pip install veilt` and use it in any script with just a
 password — no server, no mandatory external dependency.
 
 ```python
-import veil
+import veilt
 
-with veil.Vault(password="My-Strong-Password!") as vault:
+with veilt.Vault(password="My-Strong-Password!") as vault:
     vault.set("api_key", "sk-xxxxxxxx")
     print(vault.get("api_key"))
 ```
@@ -70,11 +70,11 @@ with veil.Vault(password="My-Strong-Password!") as vault:
 ## 📦 Installation
 
 ```bash
-pip install veil-vault
+pip install veilt
 
 # Optional extras
-pip install "veil-vault[keyring]"   # OS-native secret store on Linux/macOS
-pip install "veil-vault[windows]"   # extra privilege-elevation hardening on Windows
+pip install "veilt[keyring]"   # OS-native secret store on Linux/macOS
+pip install "veilt[windows]"   # extra privilege-elevation hardening on Windows
 ```
 
 VEIL ships prebuilt wheels (Windows x64, Linux x86_64, Linux ARM64 — including
@@ -83,7 +83,7 @@ native extension from source automatically (any C++17 compiler works).
 
 If the native extension cannot be built at all on some unusual platform, VEIL
 falls back transparently to a pure-Python engine with the exact same API
-(reduced memory-locking protection only — see [`memory.py`](src/veil/memory.py)).
+(reduced memory-locking protection only — see [`memory.py`](src/veilt/memory.py)).
 
 ---
 
@@ -92,10 +92,10 @@ falls back transparently to a pure-Python engine with the exact same API
 ### En tant que librairie / As a library
 
 ```python
-import veil
+import veilt
 
 # Crée le coffre au premier usage, le déverrouille ensuite
-with veil.Vault(password="P@ssw0rd-Solide!42", storage="disk") as vault:
+with veilt.Vault(password="P@ssw0rd-Solide!42", storage="disk") as vault:
     vault.set("github_token", "ghp_xxxxxxxxxxxx")
     vault.set("db_password", "s3cr3t", ttl=3600)  # auto-expire après 1h
 
@@ -103,21 +103,21 @@ with veil.Vault(password="P@ssw0rd-Solide!42", storage="disk") as vault:
     print(vault.status())
 
 # One-liners façon `keyring`
-veil.quick_set("token", "abc", password="...")
-token = veil.quick_get("token", password="...")
+veilt.quick_set("token", "abc", password="...")
+token = veilt.quick_get("token", password="...")
 ```
 
 ### En ligne de commande / Command line
 
 ```bash
-veil --lang fr config init --name default --storage disk
-veil add api_key "sk-xxxx" --name default --storage disk
-veil get api_key --name default --storage disk
-veil see --name default --storage disk
-veil integrity api_key --name default --storage disk
-veil audit verify --name default --storage disk
-veil del api_key --name default --storage disk
-veil purge --name default --yes
+veilt --lang fr config init --name default --storage disk
+veilt add api_key "sk-xxxx" --name default --storage disk
+veilt get api_key --name default --storage disk
+veilt see --name default --storage disk
+veilt integrity api_key --name default --storage disk
+veilt audit verify --name default --storage disk
+veilt del api_key --name default --storage disk
+veilt purge --name default --yes
 ```
 
 Évitez `--password` en ligne de commande (visible dans l'historique du shell) :
@@ -129,18 +129,18 @@ interactive prompt or the `VEIL_PASSWORD` environment variable.
 ### Mode administrateur / Admin mode
 
 ```bash
-veil --admin config init --name default --storage disk
+veilt --admin config init --name default --storage disk
 ```
 
 ```python
-from veil import elevate
+from veilt import elevate
 if not elevate.is_admin():
     elevate.request_admin()  # relance le process avec UAC/sudo, puis quitte
-vault = veil.Vault(password="...", admin=True)
+vault = veilt.Vault(password="...", admin=True)
 ```
 
 Le mode admin/root débloque : verrouillage mémoire illimité (mlock/VirtualLock
-sans quota), durcissement anti-dump renforcé, stockage système (`/etc/veil` ou
+sans quota), durcissement anti-dump renforcé, stockage système (`/etc/veilt` ou
 `%PROGRAMDATA%\Veil`). **VEIL ne s'élève jamais tout seul** — c'est toujours un
 appel explicite.
 
@@ -150,35 +150,35 @@ appel explicite.
 
 ```
 ┌──────────────┐   ┌───────────────┐   ┌──────────────────┐
-│   CLI (FR/EN)│──▶│  veil.Vault   │──▶│  veil.crypto      │
+│   CLI (FR/EN)│──▶│  veilt.Vault   │──▶│  veilt.crypto      │
 │  Typer + Rich│   │  (façade)     │   │  Argon2id+AES-GCM │
 └──────────────┘   └───────┬───────┘   └──────────────────┘
                             │
         ┌───────────────┬──┴───┬────────────────┬─────────────┐
         ▼                ▼     ▼                 ▼             ▼
-  veil.memory      veil.daemon  veil.logs   veil.integrity  veil.antimem
+  veilt.memory      veilt.daemon  veilt.logs   veilt.integrity  veilt.antimem
   (native C++       (TTL/status  (audit       (HMAC layer)   (threat
    engine + mlock/   leases)      hash-chain)                 scanning)
    VirtualLock)
         │
         ▼
-  veil._veil_native (pybind11, compiled per-platform: Windows/Linux/ARM)
+  veilt._veilt_native (pybind11, compiled per-platform: Windows/Linux/ARM)
 ```
 
 | Module | Rôle / Role |
 |---|---|
-| `veil.vault` | API publique haut niveau (`Vault`) / High-level public API |
-| `veil.crypto` | Argon2id (hash + KDF) + AES-256-GCM + HKDF |
-| `veil.native` (C++) | Stockage mémoire verrouillée, anti-dump, panic mode |
-| `veil.memory` | Pont natif ↔ repli Python pur / native ↔ pure-Python fallback bridge |
-| `veil.integrity` | Couche HMAC indépendante (défense en profondeur) |
-| `veil.logs` | Journal d'audit en chaîne de hachage inviolable |
-| `veil.daemon` | Statuts d'entrées, TTL/lease, en thread d'arrière-plan |
-| `veil.antimem` | Détection d'outils d'inspection mémoire |
-| `veil.osvault` | Intégration optionnelle Windows Credential Manager / `keyring` |
-| `veil.elevate` | Détection/élévation de privilèges admin / root |
-| `veil.config` | Emplacements XDG/AppData cross-plateforme |
-| `veil.i18n` | Traduction FR/EN |
+| `veilt.vault` | API publique haut niveau (`Vault`) / High-level public API |
+| `veilt.crypto` | Argon2id (hash + KDF) + AES-256-GCM + HKDF |
+| `veilt.native` (C++) | Stockage mémoire verrouillée, anti-dump, panic mode |
+| `veilt.memory` | Pont natif ↔ repli Python pur / native ↔ pure-Python fallback bridge |
+| `veilt.integrity` | Couche HMAC indépendante (défense en profondeur) |
+| `veilt.logs` | Journal d'audit en chaîne de hachage inviolable |
+| `veilt.daemon` | Statuts d'entrées, TTL/lease, en thread d'arrière-plan |
+| `veilt.antimem` | Détection d'outils d'inspection mémoire |
+| `veilt.osvault` | Intégration optionnelle Windows Credential Manager / `keyring` |
+| `veilt.elevate` | Détection/élévation de privilèges admin / root |
+| `veilt.config` | Emplacements XDG/AppData cross-plateforme |
+| `veilt.i18n` | Traduction FR/EN |
 
 ---
 
@@ -231,7 +231,7 @@ Issus du commentaire d'aide fourni et de l'analyse du code source original :
    *avant* le calcul de `time_diff`, rendant le délai mesuré quasi nul à chaque
    lecture, déclenchant le mode panique presque systématiquement. **Corrigé** :
    l'ancien timestamp est capturé avant l'écrasement
-   (`src/veil/native/engine.cpp`).
+   (`src/veilt/native/engine.cpp`).
 2. **Pointeur pendouillant (dangling pointer)** — `get()` retournait un
    `const char*` pointant directement dans le vecteur de stockage, *après*
    libération du mutex : une autre thread pouvait invalider ce pointeur entre
@@ -242,7 +242,7 @@ Issus du commentaire d'aide fourni et de l'analyse du code source original :
    ce qu'un ciphertext AES-GCM contient régulièrement. **Corrigé** : utilisation
    systématique de `py::bytes`/`std::string` à longueur explicite.
 4. **Sel codé en dur** — le code original appelait
-   `derive_master_key(password, "veil_salt")` avec une chaîne littérale au lieu
+   `derive_master_key(password, "veilt_salt")` avec une chaîne littérale au lieu
    du sel aléatoire réellement stocké par coffre, annulant l'intérêt du sel.
    **Corrigé** : `Vault` charge systématiquement `config["salt"]`.
 5. **Crypto faible** — SHA-256 brut + PBKDF2 + Fernet remplacés par

@@ -43,7 +43,7 @@
 
 namespace py = pybind11;
 
-namespace veil {
+namespace veilt {
 
 using Clock = std::chrono::steady_clock;
 
@@ -173,7 +173,7 @@ public:
     }
 
     bool raise_memory_lock_limit() {
-        return veil::raise_memlock_limit();
+        return veilt::raise_memlock_limit();
     }
 
 private:
@@ -196,23 +196,23 @@ private:
     int min_interval_ms_;
 };
 
-} // namespace veil
+} // namespace veilt
 
-PYBIND11_MODULE(_veil_native, m) {
+PYBIND11_MODULE(_veilt_native, m) {
     m.doc() = "VEIL native secure-memory engine (Windows / Linux / ARM)";
 
-    py::class_<veil::SecureStore>(m, "SecureStore")
+    py::class_<veilt::SecureStore>(m, "SecureStore")
         .def(py::init<int, int>(),
              py::arg("max_access_per_window") = 30,
              py::arg("min_interval_ms") = 5)
-        .def("store", &veil::SecureStore::store, py::arg("id"), py::arg("data"))
-        .def("get", &veil::SecureStore::get, py::arg("id"))
-        .def("erase_entry", &veil::SecureStore::erase_entry, py::arg("id"))
-        .def("clear_all", &veil::SecureStore::clear_all)
-        .def("fake_dump", &veil::SecureStore::fake_dump)
-        .def("size", &veil::SecureStore::size)
-        .def("is_panic_mode", &veil::SecureStore::is_panic_mode)
-        .def("reset_panic", &veil::SecureStore::reset_panic)
-        .def("force_panic", &veil::SecureStore::force_panic)
-        .def("raise_memory_lock_limit", &veil::SecureStore::raise_memory_lock_limit);
+        .def("store", &veilt::SecureStore::store, py::arg("id"), py::arg("data"))
+        .def("get", &veilt::SecureStore::get, py::arg("id"))
+        .def("erase_entry", &veilt::SecureStore::erase_entry, py::arg("id"))
+        .def("clear_all", &veilt::SecureStore::clear_all)
+        .def("fake_dump", &veilt::SecureStore::fake_dump)
+        .def("size", &veilt::SecureStore::size)
+        .def("is_panic_mode", &veilt::SecureStore::is_panic_mode)
+        .def("reset_panic", &veilt::SecureStore::reset_panic)
+        .def("force_panic", &veilt::SecureStore::force_panic)
+        .def("raise_memory_lock_limit", &veilt::SecureStore::raise_memory_lock_limit);
 }

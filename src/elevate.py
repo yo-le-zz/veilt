@@ -1,5 +1,5 @@
 """
-veil.elevate
+veilt.elevate
 =============
 Detect and (only when explicitly asked) request administrator/root
 privileges.
@@ -84,7 +84,7 @@ def harden_token_privileges() -> bool:
     on the current process token, so VirtualLock can pin much larger regions
     than the small default working-set quota allows.
 
-    Requires the optional `pywin32` dependency (pip install veil-vault[windows]).
+    Requires the optional `pywin32` dependency (pip install veilt[windows]).
     Safe no-op everywhere else, or if pywin32 isn't installed / the privilege
     isn't granted to this account.
     """

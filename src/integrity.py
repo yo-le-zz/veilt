@@ -1,5 +1,5 @@
 """
-veil.integrity
+veilt.integrity
 ================
 Defense-in-depth tamper detection.
 
@@ -10,7 +10,7 @@ second layer: a keyed HMAC-SHA256 over `entry_id || ciphertext`, using
 a key derived separately from the encryption key (see
 `crypto.derive_subkey`). It gives:
 
-  - An explicit, fast PASS/FAIL check (`veil integrity`) that doesn't
+  - An explicit, fast PASS/FAIL check (`veilt integrity`) that doesn't
     require attempting a full decryption.
   - Protection against storage-layer corruption scenarios that could
     otherwise look like "just an empty/missing file" rather than a
@@ -36,6 +36,6 @@ def verify_entry_hash(entry_id: str, ciphertext: bytes, hmac_key: bytes, expecte
 
 def hash_raw(data: bytes) -> str:
     """Plain SHA-256 hash, used only for non-secret diagnostic fingerprints
-    (e.g. displaying a short hash in `veil see`) - never for anything
+    (e.g. displaying a short hash in `veilt see`) - never for anything
     security-relevant."""
     return hashlib.sha256(data).hexdigest()

@@ -45,7 +45,7 @@ class EncryptionTester:
     def test_key_derivation(self):
         """Test 1: Dérivation de clés"""
         try:
-            master_key = derive_master_key(self.test_password, "veil_salt")
+            master_key = derive_master_key(self.test_password, "veilt_salt")
             entry_key = derive_entry_key(master_key, "test_entry")
             
             # Vérifier que les clés sont différentes
@@ -64,7 +64,7 @@ class EncryptionTester:
     def test_encryption_decryption(self):
         """Test 2: Chiffrement et déchiffrement"""
         try:
-            master_key = derive_master_key(self.test_password, "veil_salt")
+            master_key = derive_master_key(self.test_password, "veilt_salt")
             
             # Chiffrement
             original_data = self.test_data.encode()
@@ -86,7 +86,7 @@ class EncryptionTester:
     def test_integrity_hashing(self):
         """Test 3: Hachage d'intégrité"""
         try:
-            master_key = derive_master_key(self.test_password, "veil_salt")
+            master_key = derive_master_key(self.test_password, "veilt_salt")
             entry_key = derive_entry_key(master_key, "integrity_test")
             
             # Générer les hashes
@@ -111,7 +111,7 @@ class EncryptionTester:
         """Test 4: Stockage et récupération"""
         try:
             test_id = "storage_test"
-            master_key = derive_master_key(self.test_password, "veil_salt")
+            master_key = derive_master_key(self.test_password, "veilt_salt")
             
             # Chiffrement
             encrypted = encrypt(self.test_data.encode(), master_key)
@@ -142,7 +142,7 @@ class EncryptionTester:
             clear_all()
             
             test_id = "persistence_enc_test"
-            master_key = derive_master_key(self.test_password, "veil_salt")
+            master_key = derive_master_key(self.test_password, "veilt_salt")
             
             # Chiffrement
             encrypted = encrypt(self.test_data.encode(), master_key)
@@ -166,7 +166,7 @@ class EncryptionTester:
     def test_multiple_entries(self):
         """Test 6: Gestion de multiples entrées"""
         try:
-            master_key = derive_master_key(self.test_password, "veil_salt")
+            master_key = derive_master_key(self.test_password, "veilt_salt")
             
             # Créer plusieurs entrées
             entries = {}
@@ -199,7 +199,7 @@ class EncryptionTester:
     def test_large_data(self):
         """Test 7: Gestion de données volumineuses"""
         try:
-            master_key = derive_master_key(self.test_password, "veil_salt")
+            master_key = derive_master_key(self.test_password, "veilt_salt")
             
             # Créer des données volumineuses (1MB)
             large_data = "A" * (1024 * 1024)  # 1MB de 'A'
@@ -231,7 +231,7 @@ class EncryptionTester:
             import threading
             from concurrent.futures import ThreadPoolExecutor
             
-            master_key = derive_master_key(self.test_password, "veil_salt")
+            master_key = derive_master_key(self.test_password, "veilt_salt")
             
             results = []
             errors = []
@@ -263,7 +263,7 @@ class EncryptionTester:
     def test_error_handling(self):
         """Test 9: Gestion d'erreurs"""
         try:
-            master_key = derive_master_key(self.test_password, "veil_salt")
+            master_key = derive_master_key(self.test_password, "veilt_salt")
             
             # Test avec mauvaises données
             error_cases = []
@@ -276,7 +276,7 @@ class EncryptionTester:
             
             # Cas 2: Clé incorrecte
             try:
-                wrong_key = derive_master_key("wrong_password", "veil_salt")
+                wrong_key = derive_master_key("wrong_password", "veilt_salt")
                 decrypt(encrypt(self.test_data.encode(), master_key), wrong_key)
             except:
                 error_cases.append("wrong_key_handled")
@@ -298,7 +298,7 @@ class EncryptionTester:
     def test_performance(self):
         """Test 10: Performance de chiffrement"""
         try:
-            master_key = derive_master_key(self.test_password, "veil_salt")
+            master_key = derive_master_key(self.test_password, "veilt_salt")
             
             # Test de performance
             test_data = "Performance test data " * 100  # ~2KB

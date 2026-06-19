@@ -51,7 +51,7 @@ def register_commands(app: typer.Typer):
                 entries_to_overwrite = []
                 
                 # Chercher tous les fichiers .data dans le répertoire temporaire
-                temp_dir = os.path.join(tempfile.gettempdir(), "veil_vault")
+                temp_dir = os.path.join(tempfile.gettempdir(), "veilt_vault")
                 if os.path.exists(temp_dir):
                     data_files = glob.glob(os.path.join(temp_dir, "*.data"))
                     print(f"   [INFO] Fichiers de données trouvés: {len(data_files)}")
@@ -128,7 +128,7 @@ def register_commands(app: typer.Typer):
             
             # 3. Supprimer les fichiers temporaires
             print("3. Suppression des fichiers temporaires...")
-            temp_dir = os.path.join(tempfile.gettempdir(), "veil_vault")
+            temp_dir = os.path.join(tempfile.gettempdir(), "veilt_vault")
             if os.path.exists(temp_dir):
                 try:
                     shutil.rmtree(temp_dir)
@@ -168,9 +168,9 @@ def register_commands(app: typer.Typer):
             print("\n🎉 PURGE COMPLET!")
             print("💡 VEIL est maintenant vierge et prêt à être réinitialisé")
             print("📋 Prochaines étapes:")
-            print("   1. python veil.py config init --storage ram --password VOTRE_MDP")
-            print("   2. python veil.py add --password VOTRE_MDP --id test --type txt --txt 'test'")
-            print("   3. python veil.py see --password VOTRE_MDP")
+            print("   1. python veilt.py config init --storage ram --password VOTRE_MDP")
+            print("   2. python veilt.py add --password VOTRE_MDP --id test --type txt --txt 'test'")
+            print("   3. python veilt.py see --password VOTRE_MDP")
             
             result = {
                 "status": "success",
@@ -252,7 +252,7 @@ def register_commands(app: typer.Typer):
                 raise typer.BadParameter("type must be 'txt' or 'file'")
             
             # Derive keys
-            master_key = derive_master_key(password, "veil_salt")
+            master_key = derive_master_key(password, "veilt_salt")
             entry_key = derive_entry_key(master_key, id)
             
             # Encrypt data
@@ -335,7 +335,7 @@ def register_commands(app: typer.Typer):
                 pass  # Ignore RAM loading errors
             
             # Derive keys
-            master_key = derive_master_key(password, "veil_salt")
+            master_key = derive_master_key(password, "veilt_salt")
             entry_key = derive_entry_key(master_key, id)
             
             # Decrypt data
@@ -484,7 +484,7 @@ def register_commands(app: typer.Typer):
         
         try:
             # Verify password
-            master_key = derive_master_key(password, "veil_salt")
+            master_key = derive_master_key(password, "veilt_salt")
             
             if attack:
                 # Show attack logs and security status
@@ -520,7 +520,7 @@ def register_commands(app: typer.Typer):
                 import tempfile
                 import glob
                 
-                temp_dir = os.path.join(tempfile.gettempdir(), "veil_vault")
+                temp_dir = os.path.join(tempfile.gettempdir(), "veilt_vault")
                 if os.path.exists(temp_dir):
                     data_files = glob.glob(os.path.join(temp_dir, "*.data"))
                     print(f"\n📁 Temp Files Monitored: {len(data_files)} files")
@@ -715,7 +715,7 @@ def register_commands(app: typer.Typer):
         """Check system and data integrity"""
         try:
             # Verify password
-            master_key = derive_master_key(password, "veil_salt")
+            master_key = derive_master_key(password, "veilt_salt")
             
             if id:
                 # Check specific entry integrity
