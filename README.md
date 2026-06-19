@@ -1,4 +1,4 @@
-# 🛡️ VEIL
+# 🛡️ VEILT
 
 **Coffre-fort chiffré, sécurisé, en mémoire et/ou sur disque, pour Python — installable via `pip` et utilisable dans n'importe quel projet avec un simple mot de passe.**
 
@@ -14,7 +14,7 @@ Author / Auteur: **yolezz**
 
 ## 🇫🇷 Présentation
 
-VEIL est une librairie Python (avec moteur natif C++) qui fournit un coffre-fort
+VEILT est une librairie Python (avec moteur natif C++) qui fournit un coffre-fort
 chiffré pour vos secrets (clés API, tokens, mots de passe, identifiants...).
 Elle s'installe avec `pip install veilt` et s'utilise dans n'importe quel
 script avec un simple mot de passe — sans serveur, sans dépendance externe
@@ -45,14 +45,14 @@ détail complet, et la section [Bugs corrigés](#-bugs-corrigés--bugs-fixed) ci
 - **macOS Keychain / `keyring`** : même principe sur Linux via la librairie
   optionnelle `keyring` (Secret Service / KWallet).
 
-VEIL reste néanmoins un **composant local intégrable**, pas un service : tout
+VEILT reste néanmoins un **composant local intégrable**, pas un service : tout
 tient dans votre processus Python.
 
 ---
 
 ## 🇬🇧 Overview
 
-VEIL is a Python library (with a native C++ engine) providing an encrypted
+VEILT is a Python library (with a native C++ engine) providing an encrypted
 vault for your secrets (API keys, tokens, passwords, credentials...). Install
 it with `pip install veilt` and use it in any script with just a
 password — no server, no mandatory external dependency.
@@ -77,11 +77,11 @@ pip install "veilt[keyring]"   # OS-native secret store on Linux/macOS
 pip install "veilt[windows]"   # extra privilege-elevation hardening on Windows
 ```
 
-VEIL ships prebuilt wheels (Windows x64, Linux x86_64, Linux ARM64 — including
+VEILT ships prebuilt wheels (Windows x64, Linux x86_64, Linux ARM64 — including
 the **Raspberry Pi 5**). If no wheel matches your platform, `pip` compiles the
 native extension from source automatically (any C++17 compiler works).
 
-If the native extension cannot be built at all on some unusual platform, VEIL
+If the native extension cannot be built at all on some unusual platform, VEILT
 falls back transparently to a pure-Python engine with the exact same API
 (reduced memory-locking protection only — see [`memory.py`](src/veilt/memory.py)).
 
