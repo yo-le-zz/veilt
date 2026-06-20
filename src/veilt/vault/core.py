@@ -20,13 +20,13 @@ import shutil
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
-from . import config as cfgmod
-from . import crypto
-from . import integrity
-from ._version import VERSION
-from .antimem import ThreatScanner
-from .daemon import Daemon, EntryStatus
-from .exceptions import (
+from .. import config as cfgmod
+from .._version import VERSION
+from .. import crypto
+from .. import integrity
+from ..antimem import ThreatScanner
+from ..daemon import Daemon, EntryStatus
+from ..exceptions import (
     AuthenticationError,
     DecryptionError,
     EntryNotFoundError,
@@ -34,8 +34,8 @@ from .exceptions import (
     PanicModeError,
     VeilError,
 )
-from .logs import AuditLog, DeleteReason, EventType
-from .memory import create_engine, is_native_available
+from ..logs import AuditLog, DeleteReason, EventType
+from ..memory import create_engine, is_native_available
 
 _SENTINEL = object()
 

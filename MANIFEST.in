@@ -6,7 +6,6 @@ include setup.py
 
 # CORRECTION : Ajout de /veilt/ dans les chemins
 recursive-include src/veilt/native *.cpp *.hpp
-recursive-include src/veilt/vault/native *.cpp *.hpp *.so *.dll *.dylib
 recursive-include src/veilt/locales *.json
 
 recursive-include tests *.py

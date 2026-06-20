@@ -58,7 +58,6 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 veilt = ["locales/*.json"]
-vault = ["native/ram/build/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
