@@ -17,8 +17,9 @@ class BuildExtWithRam(build_ext):
 
     def build_ram_shared(self):
         root = Path(__file__).resolve().parent
-        ram_src = root / "src" / "native" / "ram" / "ram.cpp"
-        target_dir = root / "src" / "vault" / "native" / "ram" / "build"
+        # CORRECTION : Le chemin est maintenant sous src/veilt/native/...
+        ram_src = root / "src" / "veilt" / "native" / "ram" / "ram.cpp"
+        target_dir = root / "src" / "veilt" / "vault" / "native" / "ram" / "build"
         target_dir.mkdir(parents=True, exist_ok=True)
 
         if sys.platform == "win32":
@@ -54,21 +55,16 @@ cpp_args = []
 link_args = []
 
 if sys.platform == "win32":
-    # /EHsc: standard C++ exception handling (required by pybind11)
-    # /O2  : optimize for speed (release builds)
     cpp_args = ["/EHsc", "/O2", "/std:c++17"]
 else:
     cpp_args = ["-O3", "-std=c++17", "-fvisibility=hidden"]
     if sys.platform != "darwin":
-        # Statically link the C++ runtime where reasonable to avoid
-        # "missing DLL/.so" issues on minimal target systems - this is
-        # exactly the class of bug that broke the previous MSI builds.
         link_args = []
 
 ext_modules = [
     Pybind11Extension(
         "veilt._veilt_native",
-        ["src/native/engine.cpp"],
+        ["src/veilt/native/engine.cpp"],  # CORRECTION : Chemin mis à jour vers src/veilt/...
         cxx_std=17,
         extra_compile_args=cpp_args,
         extra_link_args=link_args,
@@ -76,8 +72,8 @@ ext_modules = [
 ]
 
 setup(
-    package_dir={"veilt": "src"},
-    packages=["veilt"] + [f"veilt.{pkg}" for pkg in find_packages(where="src", exclude=["tests", "tests.*"])],
+    package_dir={"": "src"},
+    packages=find_packages(where="src", exclude=["veilt.tests", "veilt.tests.*"]),
     include_package_data=True,
     ext_modules=ext_modules,
     cmdclass={"build_ext": BuildExtWithRam},

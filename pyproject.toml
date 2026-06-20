@@ -16,7 +16,6 @@ keywords = ["security", "vault", "secrets", "encryption", "aes-gcm", "argon2", "
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: Microsoft :: Windows",
     "Operating System :: POSIX :: Linux",
     "Programming Language :: Python :: 3",
@@ -51,7 +50,7 @@ Changelog = "https://github.com/yo-le-zz/veilt/blob/main/CHANGELOG.md"
 veilt = "veilt.cli.main:run"
 
 [tool.setuptools]
-package-dir = { "veilt" = "src" }
+package-dir = { "" = "src" }
 include-package-data = true
 
 [tool.setuptools.packages.find]
