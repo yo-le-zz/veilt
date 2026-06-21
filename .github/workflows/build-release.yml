@@ -1,0 +1,121 @@
+name: 🛡️ VEILT - CI/CD Workflow
+
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [main] # Se déclenche dès qu'une PR vers main est ouverte ou mise à jour (pour bloquer/autoriser le merge)
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write # Indispensable pour la publication sécurisée sans mot de passe sur PyPI
+
+jobs:
+
+  # -- JOB 1 : push dev -> PR automatique vers main --------------------------
+  open_pr:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - name: Titre du dernier commit (= version)
+        id: ci
+        run: echo "title=$(git log -1 --pretty=%s)" >> $GITHUB_OUTPUT
+
+      - name: Créer / mettre a jour la PR dev -> main
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
+          head: dev
+          title: ${{ steps.ci.outputs.title }}
+          body: |
+            Merge automatique depuis `dev`.
+            **Version à publier :** `${{ steps.ci.outputs.title }}`
+            
+            Le statut des tests `pytest` (Linux & Windows) doit être vert avant d'autoriser le merge.
+            -> Faites **Squash & Merge** pour valider et publier la release une fois les tests OK.
+
+  # -- JOB 2 : Test et compilation (Se lance SUR la PR pour valider le bouton de merge) -------------------------
+  build_and_test:
+    # Se lance soit pendant la PR (pour tester), soit juste après le merge sur main (pour générer les fichiers finaux)
+    if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: linux
+          - os: windows-latest
+            platform: windows
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configuration de Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Installation de uv
+        run: pip install uv
+
+      - name: Compilation native C++ et installation locale de VEILT
+        run: |
+          uv pip install --system -e ".[dev]"
+
+      - name: 🧪 Exécution des tests pytest
+        run: |
+          pytest -v
+
+      - name: 📦 Build du package (Wheel / sdist)
+        run: |
+          uv pip install --system build
+          python -m build
+
+      - name: Upload des artefacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-${{ matrix.platform }}
+          path: dist/*
+
+  # -- JOB 3 : Créer la release GitHub et publier sur PyPI (Uniquement APRÈS le merge sur main) ---------------------------------------
+  release_and_publish:
+    needs: build_and_test
+    # S'exécute uniquement si le code vient d'arriver sur main (donc après le Squash & Merge de la PR)
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Récupération du titre du commit de merge (ex: v1.0.1)
+      - name: Get Version Title
+        id: version_env
+        run: echo "title=$(git log -1 --pretty=%s)" >> $GITHUB_OUTPUT
+
+      - name: Télécharger tous les artefacts
+        uses: actions/download-artifact@v4
+        with:
+          path: all-dist
+          merge-multiple: true
+
+      - name: Créer la release GitHub
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version_env.outputs.title }}
+          name: "VEILT ${{ steps.version_env.outputs.title }}"
+          body: |
+            ## 🛡️ VEILT ${{ steps.version_env.outputs.title }}
+            Cette version a validé avec succès l'intégralité des tests automatisés.
+          files: |
+            all-dist/*
+
+      # -- PUBLICATION AUTOMATIQUE SUR PYPI (Sécurisée via OIDC Trusted Publisher) --
+      - name: 🚀 Publier sur PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: all-dist/
